@@ -1,0 +1,77 @@
+body {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) 50%),
+  url('wood.jpg'); 
+}
+h1 {
+  font-size: 2.5rem;
+  margin-top: 37%;
+}
+.simonGame {
+  background: black;
+  padding: 2% 0;
+  height: 250px;
+  width: 250px;
+  border-radius: 250px;
+}
+.simonGame-center {
+  background: black;
+  height: 111px;
+  width: 111px;
+  border-radius: 150px;
+  position: absolute;
+  top: 28%;
+  left: 28%;  
+}
+.simonGame-menu {
+  margin-top: 10%;
+}
+.simonGame-menu button {
+  background: black;
+  border-radius: 3px;
+  margin: 7px 5px;
+  padding: 5px 12px;
+  font-size: 1.25rem;
+}
+button:disabled {
+  color: gray;
+}
+.simonGame-colorButtons {
+  height: 111px;
+  width: 111px;
+  border: none;
+  margin: 1% .5%;
+}
+.simonGame-colorButtons, .simonGame-colorButtons:active, .simonGame-colorButtons:focus {
+  outline: none;
+}
+#green {
+  background: #003300;
+  border-radius: 100% 0 0 0;
+}
+#red {
+  background: #993300;
+  border-radius: 0 100% 0 0;
+}
+#yellow {
+  background: #cc9900;
+  border-radius: 0 0 0 100%;
+}
+#blue {
+  background: #000066;
+  border-radius: 0 0 100% 0;
+}
+
+@media screen and (min-width: 768px) {
+  h1 {
+    font-size: 5rem;
+  }
+  .simonGame {
+    padding: 1% 0;
+    height: 450px;
+    width: 450px;
+  }
+  .simonGame-center, .simonGame-colorButtons {
+    height: 200px;
+    width: 200px;
+  }
+}

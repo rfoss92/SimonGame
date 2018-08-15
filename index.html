@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123025758-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-123025758-1');
+  </script>
+
+  <title>Simon Game</title>
+  <meta charset="utf-8" />
+  <meta name="description" content="A Simon Game using Javascript" />
+  <meta name="Keywords" content="Ryan Foss, Simon Game" />
+  <meta name="author" content="Ryan Foss" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <link rel="stylesheet" type="text/css" href="SimonGame.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <section class="content">
+    <section class="simonGame positiveCenter">
+
+      <section class="simonGame-center">
+        <h1>SIMON</h1>
+      </section>
+
+      <section id="colorButtons">
+        <button class="simonGame-colorButtons" id="green"></button>
+        <button class="simonGame-colorButtons" id="red"></button>
+        <button class="simonGame-colorButtons" id="yellow"></button>
+        <button class="simonGame-colorButtons" id="blue"></button>
+      </section>
+
+      <section class="simonGame-menu">
+        Count <div id="counter">1</div>         
+        <button id="start">START</button>
+        <button id="reset">RESET</button>
+        <button id="strict">STRICT</button>        
+      </section>
+      
+    </section>
+  </section>
+
+  <audio id="beep0" src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"></audio>
+  <audio id="beep1"  src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"></audio>
+  <audio id="beep2" src="https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"></audio>
+  <audio id="beep3" src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"></audio>
+  <script src="/js/SimonGame.js"></script>
+
+</body>
