@@ -1,8 +1,19 @@
 body {
+  height: 100%;
+  overflow-x: hidden; 
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) 50%),
   url('wood.jpg'); 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-attachment: fixed;
+  font: bold 16px/1.5 Helvetica, Arial, sans-serif;
+  color: white;
+  text-align: center;   
 }
 h1 {
+  font-weight: bold; 
   font-size: 2.5rem;
   margin-top: 37%;
 }
@@ -66,6 +77,13 @@ button:disabled {
   background: #000066;
   border-radius: 0 0 100% 0;
 }
+.positiveCenter {
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+  display: inline-block;
+  position: relative;
+  top: 50%; }
 
 @media screen and (min-width: 768px) {
   h1 {
