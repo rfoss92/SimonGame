@@ -1,117 +1,103 @@
-// create a separate timer where the timeout is multiplied by the array length and the it enables the buttons
-
 (simonGame => {
-let colorArray = ['green', 'red', 'yellow', 'blue'];
-let randomColorArray = [];
-let playerArray = [];
-let yourInterval;
-let theirInterval;
-let counter = 1;
-let playerCorrect = true;
-let strictOn = true;
-let i = 0;
-$('#green, #red, #yellow, #blue').prop('disabled', true);
+  let colorArray = ['green', 'red', 'yellow', 'blue'];
+  let randomColorArray = [];
+  let playerArray = [];
+  let interval;
+  let counter = 0;
+  let playerCorrect = true;
+  let strictOn = false;
+  let moveIndex = 0;
+  $('#green, #red, #yellow, #blue').prop('disabled', true);
 
-strict.onclick = () => {
-  if (strictOn) {
-    strictOn = false;
-    $('h1').html('STRICT');
-  } else {
-    strictOn = true;
-    $('h1').html('SIMON');
-  }
-};
+  $('#start').click(start);
+  $('#reset').click(reset);
+  $('#strict').click(strict);
+  $('#colorButtons button').click(function () { yourMove(this.id) });
 
-$('#reset').click(reset);
-function reset() {
-  $('#start, #strict').prop('disabled', false);
-  playerCorrect = true;
-  randomColorArray = [];
-  playerArray = [];
-  yourInterval;
-  theirInterval;
-  counter = 1;
-  $('#counter').html(counter);
-}
-
-$('#start').click(start);
-function start() {
-  let i = 0;
-  $('#start, #strict').prop('disabled', true);
-  $('#green, #red, #yellow, #blue').prop('disabled', false);
-
-  if (playerCorrect) {
-    randomColorArray.push(colorArray[Math.floor(Math.random() * colorArray.length)]);
-  }
-
-  function flash() {
-    let color = randomColorArray[i];
-    let colorBG = document.getElementById(color);
-    colorBG.style.background = color;
-    document.getElementById('beep' + colorArray.indexOf(color)).play();
+  function start() {
+    $('#start, #strict').prop('disabled', true);
+    $('#green, #red, #yellow, #blue').prop('disabled', false);
+    counter++;
     $('#counter').html(counter);
-
-    clearInterval(yourInterval);
-    clearInterval(theirInterval);
-    theirInterval = setInterval(function () {
-      colorBG.style.background = '';
-    }, 500);
+    if (playerCorrect) randomColorArray.push(colorArray[Math.floor(Math.random() * colorArray.length)]);
+    flashColors();
   }
 
-  (function myLoop() {
-      setTimeout(function () {
-        flash();
-        i++;
-        if (i < randomColorArray.length) {
-          myLoop();
-        }
-      }, 1000);
-    })();
-}
+  function flashColors(colorIndex = 0) {
+    setTimeout(() => {
+      let color = randomColorArray[colorIndex];     
+      flash(color);
+      colorIndex++;
+      if (colorIndex < randomColorArray.length) {
+        flashColors(colorIndex);
+      }
+    }, 1000);
+  }
 
-//payer move
-$('#colorButtons button').click(function () {
-  yourMove(this.id);
-});
+  function flash(color) {
+    $('#counter').html(counter); // remove the 'WRONG' message
+    let colorButton = $('#' + color)[0];
+    colorButton.style.background = color;
+    $('#beep' + colorArray.indexOf(color))[0].play();
+    clearInterval(interval);
+    interval = setInterval(() => {
+      colorButton.style.background = '';
+    }, 250);
+  }
 
-function yourMove(color) {
-  // flash color
-  let colorBG = document.getElementById(color);
-  colorBG.style.background = color;
-  document.getElementById('beep' + colorArray.indexOf(color)).play();
-  clearInterval(yourInterval);
-  yourInterval = setInterval(function () {
-    colorBG.style.background = '';
-  }, 250);
+  function reset() {
+    $('#start, #strict').prop('disabled', false);
+    playerCorrect = true;
+    randomColorArray = playerArray = [];
+    counter = moveIndex = 0;
+    $('#counter').html(counter);
+  }
 
-  playerArray.push(color);
+  function strict()  {
+    if (strictOn) {
+      strictOn = false;
+      $('h1').html('SIMON');
+    } else {
+      strictOn = true;
+      $('h1').html('STRICT');
+    }
+  }
 
-  if (playerArray[i] !== randomColorArray[i]) {
-    if (!strictOn) {
+  function yourMove(color) { 
+    flash(color);
+    playerArray.push(color);
+    if (playerArray[moveIndex] !== randomColorArray[moveIndex]) {
+      wrong();
+    } else if (playerArray.length === 20) {
+      reset();
+      $('#counter').html('YOU WIN!');
+    } else {
+      right();
+    }
+  }
+
+  function wrong(){
+    if (strictOn) {
       reset();
       start();
     } else {
       playerCorrect = false;
       playerArray = [];
+      moveIndex = 0;
       start();
     }
-
     $('#counter').html('WRONG!');
-
-  } else if (playerArray.length === 20) {
-    reset();
-    $('#counter').html('YOU WIN!');
-  } else {
-    i++;
-    if (playerArray.length === randomColorArray.length) {
-      counter++;
-      $('#counter').html(counter);
-      i = 0;
-      playerArray = [];
-      playerCorrect = true;
-      start();
-    }
   }
-}
+
+  function right(){
+    moveIndex++;
+    if (playerArray.length === randomColorArray.length) {
+      $('#counter').html(counter);
+      playerCorrect = true;
+      playerArray = [];
+      moveIndex = 0;
+      start();
+    }    
+  }
 
 })();
